@@ -15,7 +15,7 @@ The signal pin is typically yellow, orange or white and should be connected to a
 
 */
 
-#define ENABLE_SERVO
+//#define ENABLE_SERVO
 
 #ifdef ENABLE_SERVO
 #include <Servo.h>
@@ -66,13 +66,15 @@ void loop() {
   delay(1000);
 #endif
 
-  if(false) {
+  if(true) {
     int buttonState = digitalRead(buttonPin);
+    Serial.print("state ");
+    Serial.print(buttonState);
     if(buttonState == LOW) {
       digitalWrite(led, HIGH);
     }
     else {
-      for(int i = 0; i < 15; ++i) {
+      for(int i = 0; i < 1; ++i) {
         digitalWrite(led, LOW);
         tone(buzzerPin, 440);
         delay(200);
@@ -80,7 +82,7 @@ void loop() {
         tone(buzzerPin, 880);
         delay(200);
       }
-      noTone(3);
+      noTone(buzzerPin);
     }
   }
 }
