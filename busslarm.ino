@@ -44,26 +44,31 @@ void setup() {
 // the loop routine runs over and over again forever:
 void loop() {
 
-  if(false) {
+  if(true) {
     //digitalWrite(motorPin, HIGH);
-    analogWrite(motorPin, 255);
-    delay(5500);
-    analogWrite(motorPin, 0);
-    delay(1500);
-    analogWrite(motorPin, 0);
-    delay(1500);
+    for(int v = 0; v <= 255; v += 1) {
+      Serial.println(v);
+      analogWrite(motorPin, v);
+      delay(100);
+    }
+    return;
   }
 
 #ifdef ENABLE_SERVO
-  steeringAngle = 25;
-  steeringServo.write(steeringAngle + 90);
-  delay(1000);
+//	for(int angle = -25; angle <= 25; angle += 1) {
+//		steeringServo.write(angle + 90 - 25);
+//		delay(1000);
+//	}
+
   steeringAngle = 0;
   steeringServo.write(steeringAngle + 90);
   delay(1000);
   steeringAngle = -25;
   steeringServo.write(steeringAngle + 90);
   delay(1000);
+  steeringAngle = -50;
+  steeringServo.write(steeringAngle + 90);
+  delay(3000);
 #endif
 
   if(true) {
@@ -102,3 +107,4 @@ void serialEvent() {
   }
 }
 */
+/* vim: set ts=2 sw=2 tw=0 syntax=cpp et :*/

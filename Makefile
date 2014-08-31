@@ -3,7 +3,7 @@
 # make SERIALDEV=/dev/ttyACM0 upload
 
 BOARD=uno
-SERIALDEV=/dev/ttyACM4
+SERIALDEV=/dev/ttyACM0
 CPPFLAGS=-save-temps
 
 include arduino.mk
