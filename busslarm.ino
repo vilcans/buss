@@ -99,10 +99,12 @@ void loop() {
       steeringServo.write(steeringAngle);
     }
 
-    if(digitalRead(joyUpPin) == LOW && speed < 255) {
+    if(digitalRead(joyUpPin) == LOW) {
+      Serial.println("^");
       speed = 255;
     }
-    else if(digitalRead(joyDownPin) == LOW && speed > -255) {
+    else if(digitalRead(joyDownPin) == LOW) {
+      Serial.println("v");
       speed = -255;
     }
     else {
