@@ -15,19 +15,15 @@ The signal pin is typically yellow, orange or white and should be connected to a
 
 */
 
-//#define ENABLE_SERVO
-
-#ifdef ENABLE_SERVO
 #include <Servo.h>
 Servo steeringServo;
-#endif
 
 const int led = 13;
 const int buzzerPin = 11;  // PWM
 const int motorPin = 9;  // PWM
 const int motorPin2 = 10;  // PWM
 const int buttonPin = 12;
-const int servoPin = 9; // PWM
+const int servoPin = 11; // PWM
 int steeringAngle = 0;
 
 void setup() {                
@@ -37,55 +33,43 @@ void setup() {
   pinMode(motorPin, OUTPUT);
   pinMode(motorPin2, OUTPUT);
   pinMode(servoPin, OUTPUT);
-#ifdef ENABLE_SERVO
   steeringServo.attach(servoPin);
-#endif
   Serial.begin(9600);
 }
 
-// the loop routine runs over and over again forever:
 void loop() {
 
   while(true) {
-    const int delayTime = 1000;
+    const int delayTime = 3000;
+    const int middleAngle = 90 + 25;
+
+    Serial.println("1");
+    steeringServo.write(middleAngle - 25);
     analogWrite(motorPin, 0);
     analogWrite(motorPin2, 255);
     delay(delayTime);
+
+    Serial.println("2");
+    steeringServo.write(middleAngle);
     analogWrite(motorPin, 0);
     analogWrite(motorPin2, 0);
     delay(delayTime);
+
+    Serial.println("3");
+    steeringServo.write(middleAngle + 25);
+    steeringServo.write(90);
     analogWrite(motorPin, 255);
     analogWrite(motorPin2, 0);
     delay(delayTime);
+
+    Serial.println("4");
+    steeringServo.write(middleAngle);
+    steeringServo.write(45);
     analogWrite(motorPin, 0);
     analogWrite(motorPin2, 0);
-    delay(delayTime);
-
-    /*
-    for(int v = 0; v <= 255; v += 1) {
-      Serial.println(v);
-      analogWrite(motorPin, v);
-      delay(100);
-    }
-    */
+    delay(delayTime * 2);
   }
 
-#ifdef ENABLE_SERVO
-//	for(int angle = -25; angle <= 25; angle += 1) {
-//		steeringServo.write(angle + 90 - 25);
-//		delay(1000);
-//	}
-
-  steeringAngle = 0;
-  steeringServo.write(steeringAngle + 90);
-  delay(1000);
-  steeringAngle = -25;
-  steeringServo.write(steeringAngle + 90);
-  delay(1000);
-  steeringAngle = -50;
-  steeringServo.write(steeringAngle + 90);
-  delay(3000);
-#endif
 
 #if 0
   if(true) {
@@ -110,19 +94,4 @@ void loop() {
 #endif
 }
 
-/*
-void serialEvent() {
-  while (Serial.available() != 0) {
-    const char inChar = (char)Serial.read();
-    if(inChar == '+') {
-      steeringAngle = min(90, steeringAngle + 10);
-      Serial.println(steeringAngle);
-    }
-    else if(inChar == '-') {
-      steeringAngle = max(-90, steeringAngle - 10);
-      Serial.println(steeringAngle);
-    }
-  }
-}
-*/
 /* vim: set ts=2 sw=2 tw=0 syntax=cpp et :*/
