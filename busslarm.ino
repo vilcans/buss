@@ -45,6 +45,7 @@ void setup() {
   pinMode(motorPin2, OUTPUT);
   pinMode(servoPin, OUTPUT);
   steeringServo.attach(servoPin);
+  steeringServo.write(steeringAngle);
   pinMode(joyRightPin, INPUT_PULLUP);
   pinMode(joyLeftPin, INPUT_PULLUP);
   pinMode(joyDownPin, INPUT_PULLUP);
