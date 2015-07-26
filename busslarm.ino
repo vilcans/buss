@@ -24,7 +24,8 @@ Servo steeringServo;
 
 const int led = 13;
 const int buzzerPin = 11;  // PWM
-const int motorPin = 10;  // PWM
+const int motorPin = 9;  // PWM
+const int motorPin2 = 10;  // PWM
 const int buttonPin = 12;
 const int servoPin = 9; // PWM
 int steeringAngle = 0;
@@ -34,6 +35,7 @@ void setup() {
   pinMode(buttonPin, INPUT_PULLUP);
   pinMode(buzzerPin, OUTPUT);
   pinMode(motorPin, OUTPUT);
+  pinMode(motorPin2, OUTPUT);
   pinMode(servoPin, OUTPUT);
 #ifdef ENABLE_SERVO
   steeringServo.attach(servoPin);
@@ -44,14 +46,28 @@ void setup() {
 // the loop routine runs over and over again forever:
 void loop() {
 
-  if(true) {
-    //digitalWrite(motorPin, HIGH);
+  while(true) {
+    const int delayTime = 1000;
+    analogWrite(motorPin, 0);
+    analogWrite(motorPin2, 255);
+    delay(delayTime);
+    analogWrite(motorPin, 0);
+    analogWrite(motorPin2, 0);
+    delay(delayTime);
+    analogWrite(motorPin, 255);
+    analogWrite(motorPin2, 0);
+    delay(delayTime);
+    analogWrite(motorPin, 0);
+    analogWrite(motorPin2, 0);
+    delay(delayTime);
+
+    /*
     for(int v = 0; v <= 255; v += 1) {
       Serial.println(v);
       analogWrite(motorPin, v);
       delay(100);
     }
-    return;
+    */
   }
 
 #ifdef ENABLE_SERVO
@@ -71,6 +87,7 @@ void loop() {
   delay(3000);
 #endif
 
+#if 0
   if(true) {
     int buttonState = digitalRead(buttonPin);
     Serial.print("state ");
@@ -90,6 +107,7 @@ void loop() {
       noTone(buzzerPin);
     }
   }
+#endif
 }
 
 /*
